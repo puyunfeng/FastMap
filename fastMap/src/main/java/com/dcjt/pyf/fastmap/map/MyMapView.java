@@ -112,6 +112,10 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         return this;
     }
 
+    public void setHeight() {
+
+    }
+
     public void openLocation(Boolean open, int resourse) {
         if (open) {
             MyLocationStyle myLocationStyle = new MyLocationStyle();
@@ -270,8 +274,8 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
             if (result != null && result.getRegeocodeAddress() != null
                     && result.getRegeocodeAddress().getFormatAddress() != null) {
                 String addressName = result.getRegeocodeAddress().getFormatAddress();
-                if(IOperatePosListener!=null){
-                    IOperatePosListener.getAddress(addressName,result.getRegeocodeQuery().getPoint());
+                if (IOperatePosListener != null) {
+                    IOperatePosListener.getAddress(addressName, result.getRegeocodeQuery().getPoint());
                 }
                 DBLog.d(addressName + "附近");
             } else {
