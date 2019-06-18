@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dcjt.pyf.fastmap.map.MapContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/map_Container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.dcjt.pyf.fastmap.map.MyMapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"/>
+
+</com.dcjt.pyf.fastmap.map.MapContainer>
