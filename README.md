@@ -36,7 +36,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.puyunfeng:FastMap:0.0.1'
+	        implementation 'com.github.puyunfeng:FastMap:tag'
 	}
 引入布局文件
 
