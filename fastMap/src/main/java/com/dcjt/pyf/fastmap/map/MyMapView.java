@@ -56,7 +56,6 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
     IPOSTION ipostion = null;
     private AMapLocation aMapLocation;
-
     interface IPOSTION {
         void getPostion(LatLng latlng);
     }
@@ -111,11 +110,6 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         openLocation(open, R.drawable.location_marker);
         return this;
     }
-
-    public void setHeight() {
-
-    }
-
     public void openLocation(Boolean open, int resourse) {
         if (open) {
             MyLocationStyle myLocationStyle = new MyLocationStyle();
