@@ -4,9 +4,11 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -56,6 +58,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
     IPOSTION ipostion = null;
     private AMapLocation aMapLocation;
+
     interface IPOSTION {
         void getPostion(LatLng latlng);
     }
@@ -110,6 +113,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         openLocation(open, R.drawable.location_marker);
         return this;
     }
+
     public void openLocation(Boolean open, int resourse) {
         if (open) {
             MyLocationStyle myLocationStyle = new MyLocationStyle();
@@ -179,6 +183,18 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
                 .position(latlng)
                 .draggable(true);
         getMap().addMarker(markerOption);
+        return this;
+    }
+
+    public MyMapView openNav2(LatLng latLng) {
+        if (latLng != null) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            Uri uri = Uri.parse("androidamap://navi?sourceApplication=appname&poiname=fangheng&lat="+latLng.latitude+"&lon="+latLng.longitude+"&dev=1&style=2");
+            intent.setData(uri);
+            context.startActivity(intent);
+        }
         return this;
     }
 

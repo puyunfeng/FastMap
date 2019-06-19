@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 
+import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
 import com.dcjt.pyf.fastmap.map.MapContainer;
 import com.dcjt.pyf.fastmap.map.MyMapView;
@@ -54,5 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivity(View view) {
         mapView.moveCamera();
+    }
+
+    public void openNav(View view) {
+         LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
+        mapView.openNav2(latLng);
     }
 }

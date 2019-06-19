@@ -29,6 +29,12 @@
                 android:layout_height="wrap_content"
                 android:onClick="openActivity"
                 android:text="回到当前位置" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openNav"
+                android:text="调起app导航" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
