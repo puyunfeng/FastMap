@@ -27,30 +27,37 @@ public class MainActivity extends AppCompatActivity {
         NestedScrollView nsScrollview = (NestedScrollView) findViewById(R.id.ns_scrollview);
         MapContainer mapContainer = (MapContainer) findViewById(R.id.map_Container);
         mapContainer.setScrollView(nsScrollview);
-       // LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
+         LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
 
         mapView.initMap(savedInstanceState, getLifecycle())
                 .openLocation(true)
-                .moveCamera()
-        ;
+                .setOperatePosListener(new MyMapView.OperatePosListener() {
+                    @Override
+                    public void getAddress(String addressName, LatLonPoint point) {
+                        Log.d("getAddress", addressName);
+                    }
+                })
+                .operatePos(true)
+                .moveCamera();
 //                .moveCamera(latLng)
 //                .addMarkersToMap(latLng);
-
-        mapView.setOperatePosListener(new MyMapView.OperatePosListener() {
-            @Override
-            public void getAddress(String addressName, LatLonPoint point) {
-
-            }
-        });
+//
+//        mapView.setOperatePosListener(new MyMapView.OperatePosListener() {
+//            @Override
+//            public void getAddress(String getAddress, LatLonPoint point) {
+//                Log.d("getAddress", getAddress);
+//            }
+//        });
+//        mapView.operatePos(this, true);
     }
 
     public void openPos(View view) {
-       if(!isShow){
-           mapView.operatePos(this,true);
-       }else{
-           mapView.operatePos(this,false);
-       }
-        isShow=!isShow;
+        if (!isShow) {
+            mapView.operatePos(true);
+        } else {
+            mapView.operatePos(false);
+        }
+        isShow = !isShow;
     }
 
     public void openActivity(View view) {
@@ -58,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openNav(View view) {
-         LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
+        LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
         mapView.openNav2(latLng);
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chooseMaps">
+        <item>百度导航</item>
+        <item>高德导航</item>
+    </string-array>
+</resources>

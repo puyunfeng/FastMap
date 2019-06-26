@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">fastMap</string>
+    <string name="tips">提醒</string>
+    <string name="navigationTips">请安装百度或高德地图App进行导航</string>
 </resources>

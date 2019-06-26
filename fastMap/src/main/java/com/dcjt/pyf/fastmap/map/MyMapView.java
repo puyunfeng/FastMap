@@ -232,7 +232,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
      *
      * @return
      */
-    public MyMapView operatePos(Context context, Boolean open) {
+    public MyMapView operatePos(Boolean open) {
         if (open) {
             final GeocodeSearch geocoderSearch = new GeocodeSearch(context);
             geocoderSearch.setOnGeocodeSearchListener(this);
@@ -248,7 +248,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
 
                 @Override
                 public void onCameraChangeFinish(CameraPosition cameraPosition) {
-
+                    mPositionMark.setPositionByPixels(MyMapView.this.getWidth() / 2, MyMapView.this.getHeight() / 2);
                     LatLng mLatlng = cameraPosition.target;
                     if (mLatlng != null) {
                         DBLog.d("当前的维度坐标=" + (mLatlng.latitude));
@@ -272,7 +272,9 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
             mPositionMark.showInfoWindow();//主动显示indowindow
             mPositionMark.setPositionByPixels(this.getWidth() / 2, this.getHeight() / 2);
         } else {
-            mPositionMark.remove();
+            if(mPositionMark!=null){
+                mPositionMark.remove();
+            }
         }
 
         return this;
