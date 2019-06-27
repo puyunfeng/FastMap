@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
 import com.dcjt.pyf.fastmap.map.MapContainer;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mapContainer.setScrollView(nsScrollview);
         LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
 
-        mapView.setZoomGesturesEnabled(true)
+        mapView.setZoomGesturesEnabled(false)
                 .initMap(savedInstanceState, getLifecycle())
                 .openLocation(true)
                 .addMarkersToMap(latLng)
@@ -63,12 +64,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openPos(View view) {
-        if (!isShow) {
-            mapView.operatePos(true);
-        } else {
-            mapView.operatePos(false);
-        }
-        isShow = !isShow;
+//        if (!isShow) {
+////            mapView.operatePos(true);
+////        } else {
+////            mapView.operatePos(false);
+////        }
+////        isShow = !isShow;
+
+        mapView.changeCamera(CameraUpdateFactory.zoomIn(), null,true);
     }
 
     public void openActivity(View view) {

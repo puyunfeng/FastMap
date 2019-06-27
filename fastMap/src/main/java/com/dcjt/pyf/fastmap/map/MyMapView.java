@@ -23,6 +23,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.AMapOptions;
+import com.amap.api.maps2d.CameraUpdate;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.MapView;
@@ -58,7 +59,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
     IPOSTION ipostion = null;
     private AMapLocation aMapLocation;
-    private Boolean isOpenLocIng =false;
+    private Boolean isOpenLocIng = false;
 
     interface IPOSTION {
         void getPostion(LatLng latlng);
@@ -103,12 +104,34 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         });
         return this;
     }
+
     public MyMapView openLocation(Boolean open) {
-        this.isOpenLocIng =open;
+        this.isOpenLocIng = open;
         openLocation(open, 16f);
         return this;
     }
 
+    /**
+     * 放大
+     */
+    public void zoomIn() {
+        changeCamera(CameraUpdateFactory.zoomIn(), null, true);
+    }
+
+    /**
+     * 缩小
+     */
+    public void zoomOut() {
+        changeCamera(CameraUpdateFactory.zoomOut(), null, true);
+    }
+
+    public void changeCamera(CameraUpdate update, AMap.CancelableCallback callback, boolean animated) {
+        if (animated) {
+            getMap().animateCamera(update, 1000, callback);
+        } else {
+            getMap().moveCamera(update);
+        }
+    }
     public MyMapView openLocation(Boolean open, float zoom) {
         this.zoom = zoom;
         openLocation(open, R.drawable.location_marker);
@@ -161,12 +184,12 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     }
 
     public MyMapView moveCamera(final LatLng latlng) {
-        if(isOpenLocIng){
-            ipostion=new IPOSTION() {
+        if (isOpenLocIng) {
+            ipostion = new IPOSTION() {
                 @Override
                 public void getPostion(LatLng latlng2) {
                     // TODO: 2019/6/27 待优化
-                    new Thread(){
+                    new Thread() {
                         @Override
                         public void run() {
                             try {
@@ -175,14 +198,14 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
                                 e.printStackTrace();
                             }
                             moveCamera(latlng, 16f);
-                            isOpenLocIng=false;
+                            isOpenLocIng = false;
                         }
                     }.start();
 
                 }
             };
             return this;
-        }else{
+        } else {
             return moveCamera(latlng, 16f);
         }
 
@@ -217,7 +240,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.addCategory(Intent.CATEGORY_DEFAULT);
-            Uri uri = Uri.parse("androidamap://navi?sourceApplication=appname&poiname=fangheng&lat="+latLng.latitude+"&lon="+latLng.longitude+"&dev=1&style=2");
+            Uri uri = Uri.parse("androidamap://navi?sourceApplication=appname&poiname=fangheng&lat=" + latLng.latitude + "&lon=" + latLng.longitude + "&dev=1&style=2");
             intent.setData(uri);
             context.startActivity(intent);
         }
@@ -298,7 +321,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
             mPositionMark.showInfoWindow();//主动显示indowindow
             mPositionMark.setPositionByPixels(this.getWidth() / 2, this.getHeight() / 2);
         } else {
-            if(mPositionMark!=null){
+            if (mPositionMark != null) {
                 mPositionMark.remove();
             }
         }
@@ -450,7 +473,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
                     && aMapLocation.getErrorCode() == 0) {
                 addDes(aMapLocation, sb);
                 this.aMapLocation = aMapLocation;
-                if(ipostion!=null){
+                if (ipostion != null) {
                     ipostion.getPostion(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude()));
                 }
             } else {
