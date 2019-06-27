@@ -27,18 +27,29 @@ public class MainActivity extends AppCompatActivity {
         NestedScrollView nsScrollview = (NestedScrollView) findViewById(R.id.ns_scrollview);
         MapContainer mapContainer = (MapContainer) findViewById(R.id.map_Container);
         mapContainer.setScrollView(nsScrollview);
-         LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
+        LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
 
-        mapView.initMap(savedInstanceState, getLifecycle())
+        mapView.setZoomGesturesEnabled(true)
+                .initMap(savedInstanceState, getLifecycle())
                 .openLocation(true)
-                .setOperatePosListener(new MyMapView.OperatePosListener() {
-                    @Override
-                    public void getAddress(String addressName, LatLonPoint point) {
-                        Log.d("getAddress", addressName);
-                    }
-                })
-                .operatePos(true)
-                .moveCamera();
+                .addMarkersToMap(latLng)
+                .moveCamera(latLng)
+
+        ;
+
+
+//        mapView.initMap(savedInstanceState, getLifecycle())
+//                .openLocation(true)
+//                .setOperatePosListener(new MyMapView.OperatePosListener() {
+//                    @Override
+//                    public void getAddress(String addressName, LatLonPoint point) {
+//                        Log.d("getAddress", addressName);
+//                    }
+//                })
+//                .operatePos(true)
+//                .moveCamera();
+
+
 //                .moveCamera(latLng)
 //                .addMarkersToMap(latLng);
 //

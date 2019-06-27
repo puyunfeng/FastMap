@@ -58,6 +58,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
     IPOSTION ipostion = null;
     private AMapLocation aMapLocation;
+    private Boolean isOpenLocIng =false;
 
     interface IPOSTION {
         void getPostion(LatLng latlng);
@@ -93,7 +94,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         uiSettings.setScrollGesturesEnabled(true);
         uiSettings.setZoomGesturesEnabled(ZoomGesturesEnabled);
         uiSettings.setScaleControlsEnabled(true);
-        uiSettings.setZoomControlsEnabled(false);
+        uiSettings.setZoomControlsEnabled(ZoomGesturesEnabled);
         aMap.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
             @Override
             public void onMapLoaded() {
@@ -102,8 +103,8 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         });
         return this;
     }
-
     public MyMapView openLocation(Boolean open) {
+        this.isOpenLocIng =open;
         openLocation(open, 16f);
         return this;
     }
@@ -159,8 +160,33 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         return this;
     }
 
-    public MyMapView moveCamera(LatLng latlng) {
-        return moveCamera(latlng, 16f);
+    public MyMapView moveCamera(final LatLng latlng) {
+        if(isOpenLocIng){
+            ipostion=new IPOSTION() {
+                @Override
+                public void getPostion(LatLng latlng2) {
+                    // TODO: 2019/6/27 待优化
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            try {
+                                sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            moveCamera(latlng, 16f);
+                            isOpenLocIng=false;
+                        }
+                    }.start();
+
+                }
+            };
+            return this;
+        }else{
+            return moveCamera(latlng, 16f);
+        }
+
+
     }
 
     public MyMapView moveCamera(LatLng latlng, float zoom) {
@@ -424,7 +450,9 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
                     && aMapLocation.getErrorCode() == 0) {
                 addDes(aMapLocation, sb);
                 this.aMapLocation = aMapLocation;
-                ipostion.getPostion(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude()));
+                if(ipostion!=null){
+                    ipostion.getPostion(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude()));
+                }
             } else {
                 String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);
