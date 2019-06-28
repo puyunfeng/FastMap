@@ -110,12 +110,14 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         openLocation(open, 16f);
         return this;
     }
-
     /**
      * 放大
      */
     public void zoomIn() {
         changeCamera(CameraUpdateFactory.zoomIn(), null, true);
+    }
+    public void zoomIn(AMap.CancelableCallback callback) {
+        changeCamera(CameraUpdateFactory.zoomIn(), callback, true);
     }
 
     /**
@@ -123,6 +125,9 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
      */
     public void zoomOut() {
         changeCamera(CameraUpdateFactory.zoomOut(), null, true);
+    }
+    public void zoomOut(AMap.CancelableCallback callback) {
+        changeCamera(CameraUpdateFactory.zoomOut(), callback, true);
     }
 
     public void changeCamera(CameraUpdate update, AMap.CancelableCallback callback, boolean animated) {
