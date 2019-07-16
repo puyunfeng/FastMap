@@ -32,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         mapView.initMap(savedInstanceState, getLifecycle())
                 .setMarkersdrawable(R.drawable.position)
+              //  .setLocationMarker(R.drawable.location)
                 .addMarkersToMap(latLng)
+                .openLocation(true)
                 .moveCamera(latLng,1)
 
         ;

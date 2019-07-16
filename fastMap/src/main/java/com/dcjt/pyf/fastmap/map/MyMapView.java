@@ -62,6 +62,8 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     private Boolean isOpenLocIng = false;
   //  private int resoursId=R.drawable.map_pin;
     private int resoursId=R.drawable.position;
+    private int location_marker=R.drawable.location_marker;
+   //  private int location_marker=R.drawable.location;
 
 
     interface IPOSTION {
@@ -146,7 +148,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
 
     public MyMapView openLocation(Boolean open, float zoom) {
         this.zoom = zoom;
-        openLocation(open, R.drawable.location_marker);
+        openLocation(open,location_marker);
         return this;
     }
 
@@ -154,7 +156,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         if (open) {
             MyLocationStyle myLocationStyle = new MyLocationStyle();
             myLocationStyle.myLocationIcon(BitmapDescriptorFactory
-                    .fromResource(R.drawable.location_marker));// 设置小蓝点的图标
+                    .fromResource(location_marker));// 设置小蓝点的图标
             myLocationStyle.strokeColor(STROKE_COLOR);
             //自定义精度范围的圆形边框宽度
             myLocationStyle.strokeWidth(5);
@@ -263,6 +265,11 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         resoursId=resId;
         return this;
     }
+    public MyMapView setLocationMarker(int resId) {
+        location_marker=resId;
+        return this;
+    }
+
 
     /**
      * 在地图上添加marker
