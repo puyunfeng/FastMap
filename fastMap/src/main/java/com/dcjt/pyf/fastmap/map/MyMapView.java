@@ -61,8 +61,8 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     private AMapLocation aMapLocation;
     private Boolean isOpenLocIng = false;
   //  private int resoursId=R.drawable.map_pin;
-    private int resoursId=R.drawable.position;
-    private int location_marker=R.drawable.location_marker;
+    private int resoursId=R.drawable.ic_pos;
+    private int location_marker=R.drawable.ic_location;
    //  private int location_marker=R.drawable.location;
 
 
