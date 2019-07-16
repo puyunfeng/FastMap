@@ -16,7 +16,7 @@ import com.dcjt.pyf.fastmap.map.MyMapView;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    float zoom=9f;
     private MyMapView mapView;
     private boolean isShow;
 
@@ -30,11 +30,10 @@ public class MainActivity extends AppCompatActivity {
         mapContainer.setScrollView(nsScrollview);
         LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
 
-        mapView.setZoomGesturesEnabled(false)
-                .initMap(savedInstanceState, getLifecycle())
-                .openLocation(true)
+        mapView.initMap(savedInstanceState, getLifecycle())
+                .setMarkersdrawable(R.drawable.position)
                 .addMarkersToMap(latLng)
-                .moveCamera(latLng)
+                .moveCamera(latLng,1)
 
         ;
 
@@ -64,14 +63,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openPos(View view) {
-//        if (!isShow) {
-////            mapView.operatePos(true);
-////        } else {
-////            mapView.operatePos(false);
-////        }
-////        isShow = !isShow;
-
-        mapView.changeCamera(CameraUpdateFactory.zoomIn(), null,true);
+        LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
+        mapView.moveCamera(latLng,zoom++);
     }
 
     public void openActivity(View view) {

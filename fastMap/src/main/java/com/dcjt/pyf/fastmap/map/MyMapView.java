@@ -60,6 +60,9 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     IPOSTION ipostion = null;
     private AMapLocation aMapLocation;
     private Boolean isOpenLocIng = false;
+  //  private int resoursId=R.drawable.map_pin;
+    private int resoursId=R.drawable.position;
+
 
     interface IPOSTION {
         void getPostion(LatLng latlng);
@@ -110,12 +113,14 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         openLocation(open, 16f);
         return this;
     }
+
     /**
      * 放大
      */
     public void zoomIn() {
         changeCamera(CameraUpdateFactory.zoomIn(), null, true);
     }
+
     public void zoomIn(AMap.CancelableCallback callback) {
         changeCamera(CameraUpdateFactory.zoomIn(), callback, true);
     }
@@ -126,6 +131,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     public void zoomOut() {
         changeCamera(CameraUpdateFactory.zoomOut(), null, true);
     }
+
     public void zoomOut(AMap.CancelableCallback callback) {
         changeCamera(CameraUpdateFactory.zoomOut(), callback, true);
     }
@@ -137,6 +143,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
             getMap().moveCamera(update);
         }
     }
+
     public MyMapView openLocation(Boolean open, float zoom) {
         this.zoom = zoom;
         openLocation(open, R.drawable.location_marker);
@@ -233,7 +240,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     public MyMapView addMarkersToMap(LatLng latlng, AMap.OnMarkerClickListener listener) {
         getMap().setOnMarkerClickListener(listener);
         MarkerOptions markerOption = new MarkerOptions().icon(BitmapDescriptorFactory
-                .fromResource(R.drawable.map_pin))
+                .fromResource(resoursId))
                 .position(latlng)
                 .draggable(true);
         getMap().addMarker(markerOption);
@@ -252,12 +259,18 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
         return this;
     }
 
+    public MyMapView setMarkersdrawable(int resId) {
+        resoursId=resId;
+        return this;
+    }
+
     /**
      * 在地图上添加marker
      */
     public MyMapView addMarkersToMap(LatLng latlng) {
+
         MarkerOptions markerOption = new MarkerOptions().icon(BitmapDescriptorFactory
-                .fromResource(R.drawable.map_pin))
+                .fromResource(resoursId))
                 .position(latlng)
                 .draggable(true);
         getMap().addMarker(markerOption);
