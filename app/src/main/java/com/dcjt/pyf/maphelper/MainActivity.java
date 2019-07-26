@@ -11,8 +11,10 @@ import android.view.View;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.dcjt.pyf.fastmap.map.MapContainer;
 import com.dcjt.pyf.fastmap.map.MyMapView;
+import com.google.gson.Gson;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -76,5 +78,16 @@ public class MainActivity extends AppCompatActivity {
     public void openNav(View view) {
         LatLng latLng = new LatLng(30.6662659463, 104.1723632813);
         mapView.openNav2(latLng);
+    }
+
+    public void openSelected(View view) {
+        mapView.setOperatePosListener(new MyMapView.OperatePosListener() {
+
+            @Override
+            public void getAddress(String addressName, LatLonPoint point, RegeocodeAddress allBean) {
+                Log.d("getAddress", "getAddress: "+allBean.getCityCode()+allBean.getCity());
+            }
+        });
+        mapView.operatePos(true);
     }
 }

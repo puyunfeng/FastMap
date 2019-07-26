@@ -39,9 +39,11 @@ import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.dcjt.pyf.fastmap.R;
+
 
 
 public class MyMapView extends MapView implements LifecycleObserver, GeocodeSearch.OnGeocodeSearchListener, LocationSource, AMapLocationListener {
@@ -60,10 +62,10 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     IPOSTION ipostion = null;
     private AMapLocation aMapLocation;
     private Boolean isOpenLocIng = false;
-  //  private int resoursId=R.drawable.map_pin;
-    private int resoursId=R.drawable.ic_pos;
-    private int location_marker=R.drawable.ic_location;
-   //  private int location_marker=R.drawable.location;
+    //  private int resoursId=R.drawable.map_pin;
+    private int resoursId = R.drawable.ic_pos;
+    private int location_marker = R.drawable.ic_location;
+    //  private int location_marker=R.drawable.location;
 
 
     interface IPOSTION {
@@ -148,7 +150,7 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
 
     public MyMapView openLocation(Boolean open, float zoom) {
         this.zoom = zoom;
-        openLocation(open,location_marker);
+        openLocation(open, location_marker);
         return this;
     }
 
@@ -262,11 +264,12 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     }
 
     public MyMapView setMarkersdrawable(int resId) {
-        resoursId=resId;
+        resoursId = resId;
         return this;
     }
+
     public MyMapView setLocationMarker(int resId) {
-        location_marker=resId;
+        location_marker = resId;
         return this;
     }
 
@@ -298,8 +301,9 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
     OperatePosListener IOperatePosListener = null;
 
     public interface OperatePosListener {
-        void getAddress(String addressName, LatLonPoint point);
+        void getAddress(String addressName, LatLonPoint point, RegeocodeAddress allBean);
     }
+
 
     /**
      * 开启手动定位
@@ -360,8 +364,10 @@ public class MyMapView extends MapView implements LifecycleObserver, GeocodeSear
             if (result != null && result.getRegeocodeAddress() != null
                     && result.getRegeocodeAddress().getFormatAddress() != null) {
                 String addressName = result.getRegeocodeAddress().getFormatAddress();
+               // String aJson = new Gson().toJson(result);
+
                 if (IOperatePosListener != null) {
-                    IOperatePosListener.getAddress(addressName, result.getRegeocodeQuery().getPoint());
+                    IOperatePosListener.getAddress(addressName, result.getRegeocodeQuery().getPoint(), result.getRegeocodeAddress());
                 }
                 DBLog.d(addressName + "附近");
             } else {

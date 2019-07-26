@@ -34,6 +34,11 @@
                 android:layout_height="wrap_content"
                 android:onClick="openNav"
                 android:text="调起app导航" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="openSelected"
+                android:text="掉起手动选择" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
